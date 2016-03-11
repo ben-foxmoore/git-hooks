@@ -103,7 +103,9 @@ function run_hooks
             echo -n `basename \`dirname "${hook}"\``
             echo "/`basename "${hook}"`"
         fi
-        ${hook} "$@"
+        if [[ -x ${hook} ]]; then
+            ${hook} "$@"
+        fi
     done
 }
 
