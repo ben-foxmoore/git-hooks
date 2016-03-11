@@ -82,6 +82,9 @@ function list_hooks
             fi
             echo -ne "\t" `basename \`dirname "${hook}"\``
             echo -ne "/`basename "${hook}"`"
+            if [[ ! -x ${hook} ]]; then
+                echo -n " (disabled)"
+            fi
             echo -e "\x1b[0m"
         done
         echo ""
