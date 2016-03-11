@@ -137,7 +137,7 @@ function install_hooks_into
     set +e
     mkdir hooks
     cd hooks
-    for file in applypatch-msg commit-msg post-applypatch post-checkout post-commit post-merge post-receive pre-applypatch pre-auto-gc pre-commit prepare-commit-msg pre-rebase pre-receive update pre-push
+    for file in applypatch-msg commit-msg post-applypatch post-checkout post-commit post-merge post-receive post-update pre-applypatch pre-auto-gc pre-commit prepare-commit-msg pre-rebase pre-receive update pre-push
     do
         echo "${2}" > "${file}"
         chmod +x "${file}"
