@@ -152,14 +152,15 @@ function install_hooks
         echo "$1 must be run inside a git repository"
         return 1
     fi
+    TOPDIR=$(git rev-parse --show-toplevel)
     cd "${GITDIR}"
     if [ "${1}" = "--install" ] ; then
         if [ -d hooks.old ] ; then
             echo "hooks.old already exists, perhaps you already installed?"
             return 1
         fi
-    cmd='#!/usr/bin/env bash
-git-hooks run "$0" "$@"';
+    cmd="#!/usr/bin/env bash
+${TOPDIR}/git-hooks run \"\$0\" \"\$@\"";
     install_hooks_into "${PWD}" "${cmd}"
     else
         if [ ! -d hooks.old ] ; then
