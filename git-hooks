@@ -61,12 +61,9 @@ function list_hooks
 {
     GITDIR=`git rev-parse --git-dir`
     cat "${GITDIR}/hooks/pre-commit" 2> /dev/null | grep 'git-hooks' > /dev/null 2> /dev/null
-    if [ $? = 0 ] ; then
-        echo "Git hooks ARE installed in this repository."
-        echo ""
-    else
-        echo "Git hooks are NOT installed in this repository. (Run 'git hooks --install' to install it)"
-        echo ""
+    if [ $? != 0 ] ; then
+        echo -e "\x1b[31mGit hooks are NOT installed in this repository. (Run 'git hooks --install' to install it)\x1b[0m"
+        return
     fi
 
     echo 'Listing User, Project, and Global hooks:'
@@ -76,12 +73,13 @@ function list_hooks
         for hook in `list_hooks_in_dir "${dir}" 2` ; do
             # Display if hook is executable or not
             if [[ -x ${hook} ]]; then
-                echo -en "\x1b[32m E \x1b[0m\t" # output green E
+                echo -en "\x1b[32m" # output green
             else
-                echo -en "\x1b[31m  D \x1b[0m\t" # output red D
+                echo -en "\x1b[31m" # output red
             fi
-            echo -n `basename \`dirname "${hook}"\``
-            echo -e "/`basename "${hook}"`"
+            echo -ne "\t" `basename \`dirname "${hook}"\``
+            echo -ne "/`basename "${hook}"`"
+            echo -e "\x1b[0m"
         done
         echo ""
     done
