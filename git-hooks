@@ -196,10 +196,12 @@ function report_error
 {
     echo "Hook failed: $last_run_hook"
     exit 1
-
 }
 
 case $1 in
+    list )
+        list_hooks
+        ;;
     run )
         if [ ! -z "${GIT_DIR}" ] ; then
             unset GIT_DIR
