@@ -81,7 +81,7 @@ function list_hooks
                 echo -en "\x1b[31m  D \x1b[0m\t" # output red D
             fi
             echo -n `basename \`dirname "${hook}"\``
-            echo -e "/`basename "${hook}"` \t- `${hook} --about`"
+            echo -e "/`basename "${hook}"`"
         done
         echo ""
     done
